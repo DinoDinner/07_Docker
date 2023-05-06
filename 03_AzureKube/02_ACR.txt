@@ -1,0 +1,25 @@
+[2-1 ACR Container Registry 만들기 ]
+https://learn.microsoft.com/ko-kr/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli
+
+1. 리소스 그룹 만들기
+$ sudo az acr create --resource-group RG10 --name labuser10acr --sku Basic
+
+-> azure portal에서 확인할 수 있음!
+
+2. ACR에 로그인
+$ sudo az acr login --name labuser10ac
+
+3. Container Image File Tag And Push
+
+<주소 얻기>
+$ sudo az acr list --resource-group RG10  --query "[].{acrLoginServer:loginServer}" --output table
+
+[ 2-2 Image Tag 달기 ]
+$ docker tag mcr.microsoft.com/azuredocs/azure-vote-front:v1 labuser10acr.azurecr.io/azure-vote-front:v1
+
+[ 2-3 Image push 하기 ]
+$sudo docker push labuser10acr.azurecr.io/azure-vote-front:v1
+
+[ 2-4 registry의 Push된 Image 나열 ]
+
+$ az acr repository list --name labuser10acr.azurecr.io --output table

@@ -1,0 +1,44 @@
+[ 6-1. Application Update ]
+
+1. config file 열람
+$ vi azure-vote/azure-vote/config_file.cfg
+
+2. Value Date Update
+$ # UI Configurations
+TITLE = 'Azure Voting App'
+VOTE1VALUE = 'Blue'
+VOTE2VALUE = 'Purple'
+SHOWHOST = 'false'
+
+[6-2. Container Image Update ]
+
+1.Update된 Container 확인
+http://localhost:8080
+
+[ 6-3. Image Tag And Push ]
+
+1. ACR List 가져오기
+$ az acr list --resource-group myResourceGroup --query "[].{acrLoginServer:loginServer}" --output table
+
+2. Tag명 변경 v2
+$ docker tag mcr.microsoft.com/azuredocs/azure-vote-front:v1 <acrLoginServer>/azure-vote-front:v2
+
+3. Update된 Container Push
+$ docker push <acrLoginServer>/azure-vote-front:v2
+
+[ 6-4 Update된 Application 배포 ]
+
+1. 현재 실행중인 인스턴스 확인
+$ kubectl get pods
+
+2. Application Update v2
+$ kubectl set image deployment azure-vote-front azure-vote-front=<acrLoginServer>/azure-vote-front:v2
+
+3. Update 된 pod 확인
+$ kubectl get pods
+
+[ 6-4. Update된 Application Test ]
+
+Update된 외부IP 주소 확인
+$ kubectl get service azure-vote-front
+===================================================

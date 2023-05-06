@@ -1,0 +1,20 @@
+
+[ 6-1 Container 삭제 ]
+
+0. 삭제하기 전에, Container를 docker stop <name> 으로 정지한다.
+1. docker ps -a 를 입력해서 현재 실행중인 Container를 확인
+2. docker rm <name> 을 입력해서 Container를 삭제할 수 있다.
+3. docker ps 로 삭제된 것을 확인할 수 있다.
+
+[ 6-2 image 삭제 ]
+
+0. image를 삭제하기 전에 image로 생성한 Container들을 모두 삭제한 뒤 작업해야한다.
+1. docker images 를 입력하여 현재 설치된 images 를 확인한다.
+2. docker rmi <name> 으로 image 삭제
+3. docker images로 삭제된 것을 확인한다.
+
+===========================================================================================================
+
+# stop : 실행중인 Container를 정지한다.
+# rm : Container를 remove한다.
+# rmi : image를 remove한다.

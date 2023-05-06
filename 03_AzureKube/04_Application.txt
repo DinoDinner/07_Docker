@@ -1,0 +1,29 @@
+[ 4-1. 매니패스트 파일 업데이트 ]
+
+1. acr id 확인
+$ az acr list --resource-group RG10 --query "[].{acrLoginServer:loginServer}" --output table
+
+2. 매니패스트 파일 열람
+$ vi azure-vote-all-in-one-redis.yaml
+
+Service : frontend와 연결하기 위한 프로그램
+
+front Deployment의
+image: mcr.microsoft.com/azuredocs/azure-vote-front:v1 수정하기
+
+mcr.microsoft.com/azuredocs -> labuser10acr.azurecr.io(acr 주소)로 변경
+
+labuser10ac.azurecr -> acr name
+
+[ 4-2. 애플리케이션 배포 ]
+
+$ kubectl apply -f azure-vote-all-in-one-redis.yaml
+
+가급적이면 aks acr은 같은 region에 설정하는게 중요함! -> 시간 축소
+
+
+[ 4-3. 애플리케이션 테스트 ]
+
+$ kubectl get service azure-vote-front --watch (약어는 -w)
+
+external ip number : 20.196.237.35 를 web에 입력하면 연결됨!

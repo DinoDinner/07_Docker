@@ -1,0 +1,23 @@
+
+[ 5-1 Logs 확인 ]
+
+1. docker logs demo1 를 입력하면 demo1에 관련된 모든 log를 확인할 수 있다.
+
+[ 5-2 Logs Test용 새로운 Container 생성 ]
+
+1. docker run --name demo3 -d busybox sh -c "while true;do $(echo date);sleep 1;done" 를 입력하여 새로운 Container를 생성한다.
+2. busybox라는 image 파일을 daemon으로 생성해서 백그라운드로 실행한다.
+3. while문 시작 : while 끝 : done, 조건 : True > 계속해서 반복한다.
+4. echo는 print와 같은 의미다.
+5. sleep : 1은 1초마다 logs를 쉬는 명령어다.
+
+[ 5-3 Follow Logs ]
+
+1. docker logs demo3 -f 를 입력해서 demo3의 logs를 계속 확인할 수 있다.
+2. logs를 정지하려면 ctrl+c 를 입력!
+
+===========================================================================================================
+
+# Logs : Docker 컨테이너에서 발생하는 로그 메시지를 보는 데 사용되는 명령어
+# --follow 또는 -f 옵션을 사용하여 실시간으로 로그를 확인
+# --tail 또는 -t 옵션을 사용하여 로그의 마지막 n개의 라인만 볼 수 있다.

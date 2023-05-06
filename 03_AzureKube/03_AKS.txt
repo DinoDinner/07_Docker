@@ -1,0 +1,38 @@
+[ 3-1 kubernetes cluster 만들기 ]
+$ az aks create \
+    --resource-group RG10 \
+    --name labuser10aks \
+    --node-count 2 \
+    --generate-ssh-keys \
+    --attach-acr labuser10acr.azurecr.io
+    --location eastasia
+
+
+MC_RG10_labuser10aks_koreacentral 가 생성됨!
+
+VMSS virtual machine scale set -> vm을 늘려주는 프로그램
+트래픽이 많아지면 load balancer가 여러대에 서버에 부하를 분산해준다.
+서버가 여러개 생기면 가상 네트워크가 필요해짐 -> VNET
+밖에서 보는 사람들은 부하 분산기만 보임 -> ip adress가 하나만 필요함
+
+load balancer는 scale out만 관련이 있음.
+
+- 공용 ip number for load balancer
+- VNET
+- VMSS
+
+aks는 내부적으로 vmss를 사용하고, 자동적으로 생김.
+
+[ 3-2 Kubernetes CLI 설치 ]
+$ az aks install-cli
+
+[ 3-3 Kubectl을 사용하여 클러스터 연결 ]
+
+1. AKS의 자격증명 가져오기
+$ az aks get-credentials --resource-group RG10 --name labuser10aks
+
+credentials을 사용하는 이유 : id/pw를 저장하지 않고 간단하게 처리할 수 있는 장점이 생김.
+
+2. kubectl로 node 확인하기
+$ sudo kubectl get nodes
+-> vmss로 확장된 2개의 node확인 가능!

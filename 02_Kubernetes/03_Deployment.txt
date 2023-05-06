@@ -1,0 +1,47 @@
+
+[ 3-1 Deployment yaml file 생성 ]
+
+1. vi deployment.yaml 를 입력하여 새 yaml file을 생성한다.
+2.  apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: nginx-deployment
+    labels:
+        app: nginx
+    spec:
+    replicas: 3  # 원하는 Replicas 수를 입력
+    selector:
+        matchLabels:
+        app: nginx # ReplicaSet이 관리할 Pod를 선택할 레이블을 지정
+    template:
+        metadata:
+        labels:
+            app: nginx # Pod에 할당할 레이블을 지정
+        spec:
+        containers:
+        - name: nginx
+            image: nginx:1.14.2
+            ports:
+            - containerPort: 80
+    를 입력하고 esc :wq로 저장!
+3. kubectl apply -f deployment.yaml 를 입력하여 pod를 적용한다.
+4. kubectl get pod 를 입력해서 pod가 잘 적용되었는지 확인한다.
+
+[ 3-2 Relicas scale ]
+
+1. kubectl get deployment 를 입력하면 deployment 라는 이름으로 실행중인 pods를 모두 확인할 수 있다.
+2. kubectl scale deployment/nginx-deployment --replicas=숫자 를 입력해서 deployment pod를 늘리거나 줄일 수 있다.
+3. 다시 한 번 kubectl get deployment 를 입력하면 deployment의 실행중인 pods 를 확인 할 수 있다.
+
+[ 3-3 deployment down(종료) ]
+
+1. kubectl get pods 로 현재 실행중인 pod 하나의 이름을 복사한다.
+2. kubectl delete pod <이름> 을 입력하면 이름을 복사했던 pod가 종료할 수 있다.
+3. 하지만 Kubernetes의 auto-filling 기능으로 인해 하나가 죽으면 다시 채워넣어준다.
+4. kubectl get pods 입력하면 새로운 이름의 pod가 생성되어 자리를 채운 것을 확인할 수 있다.
+
+[ 3-4 deployment delete ]
+
+1. kubectl get pods 로 현재 실행중인 pods 확인
+2. kubectl delete deployment nginx-deployment 를 입력하여 모든 nginx-deployment 를 삭제할 수 있다.
+3. kubectl get pods로 다시 한 번 확인.

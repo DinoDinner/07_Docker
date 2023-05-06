@@ -1,0 +1,29 @@
+[ 7-1. Cluster Version Get ]
+
+현재 Cluster Release 확인
+$ az aks get-upgrades --resource-group myResourceGroup --name myAKSCluster
+
+[ 7-2. Cluster Upgrade ]
+
+Cluster Upgrade
+$ az aks upgrade \
+    --resource-group myResourceGroup \
+    --name myAKSCluster \
+    --kubernetes-version KUBERNETES_VERSION
+
+[ 7-3. Upgrade Event 보기 ]
+
+기본 Namespace에 Event 표시
+$ kubectl get events
+
+[ 7-4. Upgrade 유효성 검사 ]
+
+업그레이드 성공 확인
+$ az aks show --resource-group myResourceGroup --name myAKSCluster --output table
+
+[ 7-5. Cluster Delete ]
+
+리소스 그룹, 컨테이너 서비스 관련 리소스 제거
+$ az group delete --name myResourceGroup --yes --no-wait
+
+===================================================

@@ -1,0 +1,35 @@
+Auzrue Machine Learning 리소스 생성
+
+테넌트 디렉토리에 구독(결제수단)이라는 개념이 달려있다.
+
+Machine Learning Studio
+
+Compute
+
+CPU N모델:Gpu 포함 / D모델:일반 CPU
+
+==========================================================
+
+Notebook : jupyter notebook을 써서 automl을 돌릴 수 있음
+
+python3.8로 설정
+
+$ from azureml.core import Workspace
+-> Workspace를 생성
+
+$ ws = Workspace.from_config()
+$ print('Workspace name : '+ws.name,'\n'
+        'Azure region : '+ws.location,'\n'
+        'Subscription ID : '+ws.subscription_id,'\n'
+        'Resource group : '+ws.resource_group)
+
+# 실험공간을 준비
+$ from azureml.core import Experiment
+$ experiment = Experiment(workspace=ws,name='diabetes-experiment')
+
+
+# 데이터를 준비한다.
+$ from azureml.opendatasets import Diabetes
+$ from sklearn.model_selection import train_test_split
+
+$ Diabetes.get_tabular_dataset().to_pandas_dataframe()

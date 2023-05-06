@@ -1,0 +1,28 @@
+
+[ 3-1 Pull Basic ]
+
+1. docker pull --help 를 입력하면 pull에 대한 명령어를 확인 할 수 있다.
+2. docker --version 을 입력하면 현재 docker의 버젼을 확인 할 수 있다.
+
+[ 3-2 다른 Verison OS Pull ]
+
+1. docker pull ubuntu:18.04 를 입력하면 ubuntu 18.04의 version image를 사용할 수 있다. (:뒤의 숫자는 해당 OS의 version을 선택할 수 있다.)
+2. docker image를 입력하면 ubuntu 18.04 Verison이 설치된걸 알 수 있다. 
+
+[ 3-3 Pull한 Container 생성 ]
+
+1. docker run --name demo1 -it ubuntu:18.04 /bin/bash 을 입력하여 demo1이란 이름으로 컨테이너를 생성한다.
+2. --name은 이름지정, -it는 interactive terminal 로 생성한 컨테이너 속의 /bin/bash 로 terminal을 바로 실행시켜준다.
+
+[ 3-4 생성한 Container 최신화 ]
+
+1. demo1의 컨테이너에 들어왔기 때문에, 그 속에서 update를 진행할 수 있다.
+2. apt-get update와 apt-get upgrade를 입력하면, demo1의 os를 update하고 upgrade를 할 수 있다.
+3. update는 install 하기 전 설치가능한 리스트를 업데이트 하는 것이고, upgrade는 설치후 패키지를 최신버젼으로 만드는 것!
+4. exit를 하면 demo1 컨테이너에서 나올 수 있다.
+5. docker start demo1을 입력하여 다시 demo1을 실행할 수 있다.
+5. 다시 demo1의 termial에 접속하려면 docker exec -it demo1 /bin/bash 를 입력한다.
+
+===========================================================================================================
+
+# Pull : OS의 다른 Version을 가져와서 실행하기 위한 Setting

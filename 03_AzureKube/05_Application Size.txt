@@ -1,0 +1,21 @@
+[ 5-1. 애플리케이션 크기조정 ]
+
+$ kubectl scale --replicas=5 deployment/azure-vote-front
+
+$ sudo kubectl get pod 을 입력하면 실행되고 있는 front 5개의 확인가능
+
+[ 5-2. 애플리케이션 자동 크기조정 ]
+
+< kube의 version 확인 >
+$ az aks show --resource-group RG10 --name labuser10aks --query kubernetesVersion --output table
+1.10 version 이상에서 작동되기 때문에 확정
+
+< 자동조정 명령어 >
+$ kubectl autoscale deployment azure-vote-front --cpu-percent=50 --min=3 --max=10
+cpu 점유율 50 이상일 경우, 최소3 최대 10까지 설정
+
+< 조정후 확인 >
+$ kubectl apply -f azure-vote-hpa.yaml
+
+[ 5-3. AKS Node 수동 크기조정 ]
+$ az aks scale --resource-group RG10 --name labuser10aks --node-count 3

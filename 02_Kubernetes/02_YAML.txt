@@ -1,0 +1,41 @@
+
+[ 2-1 YAML file 만들기 ]
+
+1. vi pod.yaml 를 입력하여 pod.yaml 이란 파일을 생성하고 vi 편집을 한다.
+2.  apiVersion: v1
+    kind: Pod
+    metadata:
+        name: counter
+    spec:
+        containers:
+        - name: count
+        image: busybox
+        args: [/bin/sh, -c, 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 1; done']
+3. 아래 내용을 입력하고 cat pod.yaml 로 잘 입력 되어있는지 확인한다.
+
+[ 2-2 클러스터에 pod 적용하기]
+
+1. 앞서 정의한 pod.yaml 을 kube cluster에 적용하기 위해 kubectl을 사용한다.
+2. kubectl apply -f pod.yaml 을 입력해서 cluster에 적용한다. apply -f 는 해당 파일을 적용한다는 뜻
+3. localhost:8080 오류가 발생한다면, Kubernetes가 설치 되지 않았다는 것이니. 다시 설치..
+4. kubectl get pod 를 입력해서 podㅇ 제대로 적용 되었는지 확인할 수 있다.
+5. 뒤에 -o(output) 이나 -w(watch)를 입력해서 pod를 여러 방식으로 확인할 수 있다.
+
+[ 2-3 pod로 접속하기 ]
+
+1. kubectl exec -it counter /bin/sh 를 입력하여 적용한 pod에 terminal로 접속할 수 있다.
+2. terminal 안에서 ps -a / top을 입력하면 현재 가동중인 프로세스를 확인할 수 있다.
+3. exit을 입력하면 termial에서 나올 수 있다.
+
+[ 2-4 pod 삭제하기 ]
+
+1. kubectl delete pod counter 를 입력하면 counter라는 이름의 pod를 삭제할 수 있다.
+2. 또는 kubectl delete -f pod.yaml 를 입력하여 삭제하는 방법도 있다.
+3. 시간이 지나고, kubectl get pods 를 입력하면 counter pod이 사라진 걸 확인 할 수 있다.
+
+=========================================================================================
+
+# YAML은 프로그래밍 언어와 관련없는 데이터를 쉽게 저장하고 전송할 수 있는 데이터 직렬화(Data Serialization) 언어의 일종이고, 하나의 포멧이다.
+# Kubernetes와 같은 컨테이너 오케스트레이션 시스템에서는 YAML 파일을 사용하여 애플리케이션의 배포 및 관리를 수행한다.
+# JSON과 유사하지만, 사람이 직접 작성하기 때문에 더욱 직관적이다.
+# 데이터 직렬화 언어로는 XML , JSON도 있다.
